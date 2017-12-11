@@ -1,6 +1,5 @@
 from django.db import models
-# To have current date as default => django.utils.timezone.now, not just django.utils
-from django.utils.timezone.now import timezone
+from django.utils import timezone
 # Reminder, reverse now in urls, not django.core.urlresolvers
 from django.urls import reverse
 
