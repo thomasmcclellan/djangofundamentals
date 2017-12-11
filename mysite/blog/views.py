@@ -46,18 +46,18 @@ class DraftListView(LoginRequiredMixin,ListView):
   model = Post 
 
   def get_queryset(self):
-    return post.objects.filter(published_date__isnull=True).order_by('-created_date')
+    return Post.objects.filter(published_date__isnull=True).order_by('-created_date')
 
 
 @login_required
-def add_comment_to_post(reqest,pk):
+def add_comment_to_post(request,pk):
   post = get_object_or_404(Post,pk=pk)
   if request.method == 'POST':
-    from = CommentForm(request.POST)
+    form = CommentForm(request.POST)
     if form.is_valid():
       comment = form.save(commit=False)
-      commit.post = post
-      commit.save()
+      comment.post = post
+      comment.save()
       return redirect('post_detail',pk=post.pk)
   else:
     form = CommentForm()
@@ -79,5 +79,5 @@ def comment_remove(reqest,pk):
 @login_required
 def post_publish(request,pk):
   post = get_object_or_404(Post,pk=pk)
-  post.publish
+  post.publish()
   return redirect('post_detail',pk=pk)

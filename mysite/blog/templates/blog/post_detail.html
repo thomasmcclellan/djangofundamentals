@@ -2,19 +2,19 @@
 {% block content %}
   <h1 class="posttitle loader">{{ post.title }}</h1>
   {% if post.published_date %}
-    <div class="date postdate">
+    <div class="date postdate loader">
       {{ post.published_date }}
     </div>
   {% else %}
     <a href="{% url 'post_publish' pk=post.pk %}" class="btn btn-default">Publish</a>
   {% endif %}
-  <p class="postcontent">{{ post.title|safe|linebreaksbr }}</p>
+  <p class="postcontent loader">{{ post.text|safe|linebreaksbr }}</p>
   {% if user.is_authenticated %}
     <a href="{% url 'post_edit' pk=post.pk %}" class="btn btn-primary">
-      <span class="glyphicon plyphicon-pencil"></span>
+      <span class="glyphicon glyphicon-pencil"></span>
     </a>
     <a href="{% url 'post_remove' pk=post.pk %}" class="btn btn-danger">
-      <span class="glyphicon plyphicon-bin"></span>
+      <span class="glyphicon glyphicon-remove"></span>
     </a>
   {% endif %}
   <hr>
@@ -26,17 +26,17 @@
         {{ comment.created_date }}
         {% if not comment.approved_comment %}
         <a href="{% url 'comment_remove' pk=comment.pk %}" class="btn btn-danger">
-          <span class="glyphicon plyphicon-bin"></span>
+          <span class="glyphicon glyphicon-remove"></span>
         </a>
         <a href="{% url 'comment_approve' pk=comment.pk %}" class="btn btn-primary">
-          <span class="glyphicon plyphicon-ok"></span>
+          <span class="glyphicon glyphicon-ok"></span>
         </a>
         {% endif %}
-        <p>{{ comment.text|safe|linebreaks }}</p>
-        <p>Posted By: <b>{{ comment.author }}</b></p>
+        <p class="loader">{{ comment.text|safe|linebreaks }}</p>
+        <p class="loader">Posted By: <b>{{ comment.author }}</b></p>
       {% endif %}
       {% empty %}
-        <p>No Comments</p>
+        <p class="loader">No Comments</p>
     {% endfor %}
   </div>
 {% endblock %}
