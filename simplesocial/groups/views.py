@@ -2,8 +2,10 @@ from django.shortcuts import render,get_object_or_404
 from django.contrib import messages 
 from django.contrib.auth.mixins import LoginRequiredMixin,PermissionRequiredMixin
 from django.urls import reverse
+from django.db import IntegrityError
 from django.views import generic
 from .models import Group,GroupMember
+from . import models 
 # Create your views here.
 class CreateGroup(LoginRequiredMixin,generic.CreateView):
   fields = ('name','description')
@@ -12,13 +14,13 @@ class CreateGroup(LoginRequiredMixin,generic.CreateView):
 class SingleGroup(generic.DetailView):
   model = Group
 
-class ListGroup(generic.ListGroup):
+class ListGroups(generic.ListView):
   model = Group
 
 class JoinGroup(LoginRequiredMixin,generic.RedirectView):
   
   def get_redirect_url(self,*args,**kwargs):
-    return reverse('groups:single',kwargs-{'slug':self.kwargs.get('slug')})
+    return reverse('groups:single',kwargs={'slug':self.kwargs.get('slug')})
   
   def get(self,request,*args,**kwargs):
     group = get_object_or_404(Group,slug=self.kwargs.get('slug'))
@@ -35,7 +37,7 @@ class JoinGroup(LoginRequiredMixin,generic.RedirectView):
 class LeaveGroup(LoginRequiredMixin,generic.RedirectView):
   
   def get_redirect_url(self,*args,**kwargs):
-    return reverse('groups:single',kwargs-{'slug':self.kwargs.get('slug')})
+    return reverse('groups:single',kwargs={'slug':self.kwargs.get('slug')})
 
   def get(self,request,*args,**kwargs):
     try:
