@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Blog</title>
+</head>
+<body>
+  <h1>Welcome to Tom's Blog</h1>
+  <h2>Latest Posts:</h2>
+  {% for posts in posts.all %}
+    {{ posts.title }}
+    <br>
+    {{ posts.pub_date_pretty }}
+    <br>
+    <img src="{{ posts.image.url }}" style="max-height: 10em">
+    <br>
+    {{ posts.summary }}
+    <br><hr><br>
+  {% endfor %}
+</body>
+</html>
