@@ -1,7 +1,11 @@
-{{ post.title }}
-<br>
-{{ post.pub_date_pretty }}
-<br>
-<img src="{{ post.image.url }}" style="max-height: 10em">
-<br>
-{{ post.body }}
+{% extends "posts/base.html" %}
+{% block content %}
+  <div class="container">
+    <h2>{{ post.title }}</h2>
+    <h4><span class="glyphicon glyphicon-time"></span> {{ post.pub_date_pretty }}</h4>
+    <br>
+    <img src="{{ post.image.url }}" style="max-height: 30em" class="img-responsive center-block">
+    <br>
+    <p>{{ post.body }}</p>
+  </div>
+{% endblock %}

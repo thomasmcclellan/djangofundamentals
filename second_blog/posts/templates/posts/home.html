@@ -1,49 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Tom's Blog</title>
-  
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-
-  </head>
-  <body>
-    <nav class="navbar navbar-default">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <a href="#" class="navbar-brand">BLOG!</a>
-          <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#mynav">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-        </div>
-        <div class="collapse navbar-collapse" id="mynav">
-          <ul class="nav navbar-nav navbar-right">
-            <li><a href="#">About</a></li>
-            <li><a href="">Twitter</a></li>
-            <li><a href="">Facebook</a></li>
-          </ul>
-        </div>
-      </div>
-    </nav>
-  <h1>Welcome to Tom's Blog</h1>
-  <h2>Latest Posts:</h2>
-  {% for post in post.all %}
-    <a href="{% url 'post_detail' post.id %}">{{ post.title }}</a>
-    <br>
-    {{ post.pub_date_pretty }}
-    <br>
-    <img src="{{ post.image.url }}" style="max-height: 10em">
-    <br>
-    {{ post.summary }}
-    <br><hr><br>
-  {% endfor %}
-
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-</body>
-</html>
+{% extends "posts/base.html" %}
+{% block content %}
+  <div class="container">
+    <h1 class="text-center">Welcome to Tom's Blog</h1>
+    <img src="{% static 'posts/trees.jpg' %}" alt="Trees" class="img-responsive center-block">
+    <h2>Latest Posts:</h2>
+    <hr>
+    {% for post in post.all %}
+      <h3><a href="{% url 'post_detail' post.id %}">{{ post.title }}</a></h3>
+      <h4><span class="glyphicon glyphicon-time"></span> {{ post.pub_date_pretty }}</h4>
+      <br>
+      <img src="{{ post.image.url }}" style="max-height: 15em" class="img-responsive center-block">
+      <br>
+      <p>{{ post.summary }}</p>
+      <hr>
+    {% endfor %}
+  </div>
+{% endblock %}
