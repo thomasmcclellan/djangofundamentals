@@ -22,6 +22,6 @@ from django.conf import settings
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',views.home,name='home'),
-    # = url(r'^posts/(?P<post_id>[0-9]+)/$'...)
+    # = url(r'^posts/(?P<post_id>[0-9]+)/$'...) => int = integers only
     path('posts/<int:post_id>/',views.post_detail,name='post_detail')
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
