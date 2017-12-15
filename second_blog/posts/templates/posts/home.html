@@ -1,0 +1,18 @@
+{% extends "posts/base.html" %}
+{% block content %}
+  <div class="container">
+    <h1 class="text-center">Welcome to Tom's Blog</h1>
+    <img src="{% static 'posts/trees.jpg' %}" alt="Trees" class="img-responsive center-block">
+    <h2>Latest Posts:</h2>
+    <hr>
+    {% for post in post.all %}
+      <h3><a href="{% url 'post_detail' post.id %}">{{ post.title }}</a></h3>
+      <h4><span class="glyphicon glyphicon-time"></span> {{ post.pub_date_pretty }}</h4>
+      <br>
+      <img src="{{ post.image.url }}" style="max-height: 15em" class="img-responsive center-block">
+      <br>
+      <p>{{ post.summary }}</p>
+      <hr>
+    {% endfor %}
+  </div>
+{% endblock %}
